@@ -41,7 +41,13 @@ public class Player : MonoBehaviour
             return;
         }
 
-        ball.ConnectedBody?.GetComponent<Joint2D>()?.connectedBody = null;
+        if (ball.ConnectedBody) {
+            Rigidbody2D connected = ball.ConnectedBody.GetComponent<Joint2D>().connectedBody;
+            if (connected) {
+                ball.ConnectedBody.GetComponent<Joint2D>().connectedBody = null;
+            }
+
+        }
 
         joint.enabled = true;
         joint.connectedBody = other.gameObject.GetComponent<Rigidbody2D>();
